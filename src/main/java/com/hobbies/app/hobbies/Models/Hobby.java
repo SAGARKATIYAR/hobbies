@@ -14,9 +14,9 @@ public class Hobby {
 	private String name;
 		
 	@ManyToOne
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "person_id")
 	@JsonBackReference
-	private User user;
+	private Person person;
 	
 	public Hobby() {}
 	public Hobby(String name) {
@@ -37,10 +37,10 @@ public class Hobby {
 		this.name = name;
 	}
 	
-	public User getUser() {
-		return user;
+	public Person getPerson() {
+		return person;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 }

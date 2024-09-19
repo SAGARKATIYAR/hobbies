@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class User {
+public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -14,16 +14,17 @@ public class User {
 	private String phoneNumber;
     private String address;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "person")
 	@JsonManagedReference
 	private List<Hobby> hobbies = new ArrayList<>();
 	
-	public User() {}
+	public Person() {}
 	
-	public User(String name, String phoneNumber, String address) {
+	public Person(String name, String phoneNumber, String address, List<Hobby> hobbies) {
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
+		this.hobbies = hobbies;
 	}
 	
 	public Long getId() {
@@ -59,23 +60,5 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
-	public void addHobby(Hobby hobby) {
-		if(hobby == null) {
-			return;
-		}
-		hobbies.add(hobby);
-		hobby.setUser(this);
-	}
-	
-	public void removeHobby(Hobby hobby) {
-		if (hobby == null) {
-			return;
-		}
-		hobbies.remove(hobby);
-		hobby.setUser(null);
-	}
 
 }
-
-
